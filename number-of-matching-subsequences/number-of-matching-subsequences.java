@@ -14,6 +14,7 @@ class Solution {
                 }
             }
             if(!map.containsKey(word)) {
+                map.put(word, false);
                 for(int i = 0; i < s.length(); ++i) {
                     if(word.charAt(index) == s.charAt(i)) {
                         index++;
@@ -23,7 +24,6 @@ class Solution {
                         count++;
                         break;
                     }
-                    map.put(word, false);
                 }
             }
         }
