@@ -1,15 +1,9 @@
 class Solution {
-    public int singleNumber(int[] nums) {
-        HashSet<Integer> checker = new HashSet();
-        for(int item : nums) {
-            if(checker.add(item) == false) {
-                checker.remove(item);
-            }
-        }
-        int ret = 0; 
-        for(int element : checker) {
-            ret = element;
-        }
-        return ret;
-    }
+    public int singleNumber(int[] nums) {
+        int single = nums[0];
+        for(int i = 1; i < nums.length; ++i) {
+            single ^= nums[i]; 
+        }
+        return single;
+    }
 }
