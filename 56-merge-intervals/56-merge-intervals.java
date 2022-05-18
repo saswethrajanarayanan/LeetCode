@@ -2,7 +2,7 @@ class Solution {
     public int[][] merge(int[][] intervals) {
         int[] lower = new int[intervals.length];
         int[] upper = new int[intervals.length];
-        int[][] mergedIntervals = new int[intervals.length][2];
+        List<int[]> mergedIntervals = new ArrayList<>();
         int count = 0;
         
         for(int i = 0; i < intervals.length; ++i) {
@@ -19,15 +19,10 @@ class Solution {
             }
             // System.out.println(subArray[0]);
             subArray[1] = upper[i];
-            mergedIntervals[count] = subArray;
+            mergedIntervals.add(subArray);
             count++;
         }
-        
-        int[][] finalIntervals = new int[count][2];
-        for(int i = 0; i < count; ++i) {
-            finalIntervals[i] = mergedIntervals[i];
-        }
-        return finalIntervals;
+        return mergedIntervals.toArray(new int[count][2]);
     }
 }
 
