@@ -1,30 +1,33 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> words = new HashMap<>();
-        for(String str : strs) {
-            String word = strSort(str);
-            if(words.containsKey(word)) {
-                words.get(word).add(str);
+        HashMap<String, List<String>> map = new HashMap<>();
+        for(String str: strs) {
+            String converted = strSort(str);
+            if(map.containsKey(converted)) {
+                List<String> existing = map.get(converted);
+                existing.add(str);
+                map.put(converted, existing);
             }
             else {
-                List<String> sub_res = new ArrayList<>();
-                sub_res.add(str);
-                words.put(word, sub_res);
+                List<String> current = new ArrayList<>();
+                current.add(str);
+                map.put(converted, current);
             }
         }
-        return new ArrayList(words.values());
+        return new ArrayList(map.values());
     }
     public String strSort(String str) {
-        int[] counter = new int[26];
-        for(char c : str.toCharArray()) {
-            counter[c - 'a']++;
+        int[] helper = new int[26];
+        for(int i = 0; i < str.length(); ++i) {
+            helper[str.charAt(i) - 'a'] += 1;
         }
-        String t = "";
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < 26; ++i) {
-            char[] chars = new char[counter[i]];
-            Arrays.fill(chars, (char)(i + 'a'));
-            t += new String(chars);
+            while(helper[i] != 0) {
+                sb.append((char)(i + 'a'));
+                helper[i] -= 1;
+            }
         }
-        return t;
+        return sb.toString();
     }
 }
