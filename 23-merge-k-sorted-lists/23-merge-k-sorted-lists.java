@@ -10,38 +10,34 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        ListNode temp = new ListNode();
-        temp = null;
-        if(lists.length == 0) return null;
-        int count = 1;
-        ListNode firstNode = new ListNode();
-        firstNode = null;
-        for(ListNode item : lists) {
-            if(item == null) continue;
-            if(temp == null) {
-                firstNode = item;
-            }
-            if(temp != null) {
-                temp.next = item;
-            }
-            while(item.next != null) {
-                item = item.next;
-            }
-            temp = item;
+        Queue<Integer> maxHeap = new PriorityQueue<>();
+        if(lists.length == 0) {
+            return null;
         }
-        ListNode head = firstNode;
-        while(head != null) {
-            ListNode node = head.next;
+        for(ListNode node : lists) {
             while(node != null) {
-                if(node.val < head.val) {
-                    int value = node.val;
-                    node.val = head.val;
-                    head.val = value;
-                }
+                maxHeap.add(node.val);    
                 node = node.next;
             }
-            head = head.next;
         }
-        return firstNode;
+        if(maxHeap.isEmpty()) return null;
+        ListNode prev = new ListNode();
+        prev = null;
+        ListNode head = new ListNode();
+        while(!maxHeap.isEmpty()) {
+            ListNode node = new ListNode();
+            node.next = null;
+            node.val = maxHeap.peek();
+            maxHeap.poll();
+            if(prev == null) {
+                prev = node;
+                head = node;
+            }
+            else {
+                prev.next = node;
+                prev = node;
+            }
+        }
+        return head;
     }
 }
