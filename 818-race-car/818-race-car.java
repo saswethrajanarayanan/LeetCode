@@ -17,9 +17,9 @@ class Solution {
         while(!storage.isEmpty()) {
             raceCarHelper helper = storage.poll();
             
-            //if(visited.contains(helper)) continue;
+            if(visited.contains(helper)) continue;
             
-            //visited.add(helper.position + " " + helper.speed);
+            visited.add(helper.position + " " + helper.speed);
             if(helper.position == target) return helper.distance;
             storage.add(new raceCarHelper(helper.position + helper.speed, helper.speed * 2, helper.distance + 1));
             if((target < (helper.position + helper.speed) && helper.speed > 0) || (target > (helper.position + helper.speed) && helper.speed < 0)) {
