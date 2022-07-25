@@ -28,6 +28,7 @@ class Solution {
                 return state.distance;
             }
             if(visited.contains(row + " " + col)) continue;
+            
             for(int[] direction : directions) {
                 int new_row = row + direction[0];
                 int new_col = col + direction[1];
@@ -38,8 +39,8 @@ class Solution {
                         queue.add(new State(new_row, new_col, distance + 1));
                     }
                 }
-                visited.add(row + " " + col);
             }
+            visited.add(row + " " + col);
         }
         return -1;
     }
